@@ -1,21 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../services/api';
+import Container from './Container';
 
 function App() {
+  const [employees, setEmployees] = useState([]);
+
   useEffect(() => {
-    async function getEmployeesFn() {
-      let employees = null;
+    async function fetchData() {
+      let response = null;
       try {
-        employees = await api();
-        console.log(employees);
+        response = await api();
+        setEmployees(response.data);
       } catch (ex) {
-        console.log(ex);
+        console.error(ex);
       }
     }
-    getEmployeesFn();
+    fetchData();
   }, []);
 
-  return <h1>Hello Tretton37</h1>;
+  return (
+    <>
+      <Container employees={employees} />
+    </>
+  );
 }
 
 export default App;
