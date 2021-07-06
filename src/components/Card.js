@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import style from './Card.module.css';
 
-function Card({ employee }) {
+// eslint-disable-next-line react/prop-types
+function Card({ employee, lastEmployeeRef }) {
   const { name, office, imagePortraitUrl: imageUrl, gitHub, linkedIn, twitter } = employee;
   return (
-    <div className={style.card}>
+    <div ref={lastEmployeeRef} className={style.card}>
       <div className={style.image} style={{ backgroundImage: `url(${imageUrl})` }} />
       <div className={style.details}>
-        <h1 className={style.name}>{name}</h1>
+        <h4 className={style.name}>{name}</h4>
         <ul className={style.social}>
           <li>
             <a target="_blank" rel="noreferrer" href={`https://linkedin.com/${linkedIn}`}>
@@ -28,7 +29,7 @@ function Card({ employee }) {
           </li>
         </ul>
       </div>
-      <h1 className={style.location}>Office: {office}</h1>
+      <h4 className={style.location}>Office: {office}</h4>
     </div>
   );
 }
