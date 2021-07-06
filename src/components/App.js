@@ -37,7 +37,7 @@ function App() {
 
   return (
     <>
-      <input type="text" onChange={onQueryNameChange} />
+      <input type="text" onChange={onQueryNameChange} placeholder="Name" />
       <select id="office" onChange={onOfficeChange} name="office">
         <option value="">Office</option>
         <option value="lund">Lund</option>
