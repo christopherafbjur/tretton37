@@ -3,8 +3,9 @@ import useEmployeePopulate from '../hooks/useEmployeePopulate';
 import Container from './Container';
 
 function App() {
+  const [query, setQuery] = useState({});
   const [pageNumber, setPageNumber] = useState(1);
-  const { loading, error, employees, hasMore } = useEmployeePopulate(pageNumber);
+  const { loading, error, employees, hasMore } = useEmployeePopulate(pageNumber, query);
 
   const observer = useRef();
   const lastEmployeeElementRef = useCallback(
@@ -24,8 +25,14 @@ function App() {
     [loading, hasMore]
   );
 
+  const onQueryChange = (e) => {
+    setQuery({ ...query, name: e.target.value });
+    setPageNumber(1);
+  };
+
   return (
     <>
+      <input type="text" onChange={onQueryChange} />
       {employees && <Container lastEmployeeRef={lastEmployeeElementRef} employees={employees} />}
       {loading && <h1>Loading</h1>}
       {error && <h1>Error</h1>}

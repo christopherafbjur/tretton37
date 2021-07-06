@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function useEmployeeSearch(pageNumber) {
+const ITEM_LOAD_LIMIT = 10;
+
+export default function useEmployeeSearch(pageNumber, query) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [cached, setCached] = useState([]);
@@ -32,17 +34,22 @@ export default function useEmployeeSearch(pageNumber) {
   }, []);
 
   useEffect(() => {
-    const limit = 10;
+    setEmployees([]);
+  }, [query]);
+
+  useEffect(() => {
     setEmployees((prevEmployees) => {
-      const updated = [
-        ...prevEmployees,
-        ...cached.slice(prevEmployees.length, prevEmployees.length + limit),
-      ];
+      // Filter by name
+      const filtered = cached.filter(
+        ({ name }) => !query.name || name.toLowerCase().startsWith(query.name)
+      );
 
-      setHasMore(updated.length < cached.length);
+      const inView = [...filtered.slice(0, pageNumber * ITEM_LOAD_LIMIT)];
 
-      return updated;
+      setHasMore(inView.length < filtered.length);
+
+      return inView;
     });
-  }, [cached, pageNumber]);
+  }, [cached, query, pageNumber]);
   return { loading, error, employees, hasMore };
 }
