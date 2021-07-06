@@ -3,7 +3,7 @@ import useEmployeePopulate from '../hooks/useEmployeePopulate';
 import Container from './Container';
 
 function App() {
-  const [query, setQuery] = useState({ office: 'stockholm' });
+  const [query, setQuery] = useState({ office: '' });
   const [pageNumber, setPageNumber] = useState(1);
   const { loading, error, employees, hasMore } = useEmployeePopulate(pageNumber, query);
 
@@ -25,14 +25,30 @@ function App() {
     [loading, hasMore]
   );
 
-  const onQueryChange = (e) => {
+  const onQueryNameChange = (e) => {
     setQuery({ ...query, name: e.target.value });
+    setPageNumber(1);
+  };
+
+  const onOfficeChange = (e) => {
+    setQuery({ ...query, office: e.target.value });
     setPageNumber(1);
   };
 
   return (
     <>
-      <input type="text" onChange={onQueryChange} />
+      <input type="text" onChange={onQueryNameChange} />
+      <select id="office" onChange={onOfficeChange} name="office">
+        <option value="">Office</option>
+        <option value="lund">Lund</option>
+        <option value="helsingborg">Helsingborg</option>
+        <option value="stockholm">Stockholm</option>
+        <option value="svea">Svea</option>
+        <option value="borlänge">Borlänge</option>
+        <option value="ljubljana">Ljubljana</option>
+        <option value="sales">Sales</option>
+        <option value="developer">Developer</option>
+      </select>
       {employees && <Container lastEmployeeRef={lastEmployeeElementRef} employees={employees} />}
       {loading && <h1>Loading</h1>}
       {error && <h1>Error</h1>}
