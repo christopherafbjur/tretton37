@@ -3,7 +3,7 @@ import useEmployeePopulate from '../hooks/useEmployeePopulate';
 import Container from './Container';
 
 function App() {
-  const [query, setQuery] = useState({});
+  const [query, setQuery] = useState({ office: 'stockholm' });
   const [pageNumber, setPageNumber] = useState(1);
   const { loading, error, employees, hasMore } = useEmployeePopulate(pageNumber, query);
 

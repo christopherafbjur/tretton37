@@ -40,8 +40,14 @@ export default function useEmployeeSearch(pageNumber, query) {
   useEffect(() => {
     setEmployees((prevEmployees) => {
       // Filter by name
-      const filtered = cached.filter(
-        ({ name }) => !query.name || name.toLowerCase().startsWith(query.name)
+      let filtered = cached.filter(
+        ({ name = '' }) => !query.name || name.toLowerCase().startsWith(query.name)
+      );
+
+      // Filter by office
+      filtered = filtered.filter(
+        ({ office = '' }) =>
+          !query.office || (office && office.toLowerCase().startsWith(query.office))
       );
 
       const inView = [...filtered.slice(0, pageNumber * ITEM_LOAD_LIMIT)];
