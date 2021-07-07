@@ -5,10 +5,10 @@ import style from './Card.module.css';
 
 // eslint-disable-next-line react/prop-types
 function Card({ employee, lastEmployeeRef }) {
-  const { name, office, imageUrl, github, linkedin, twitter } = employee;
+  const { name, office, profileimg, github, linkedin, twitter } = employee;
   return (
     <div ref={lastEmployeeRef} className={style.card}>
-      <div className={style.image} style={{ backgroundImage: `url(${imageUrl})` }} />
+      <div className={style.image} style={{ backgroundImage: `url(${profileimg})` }} />
       <div className={style.details}>
         <h4 className={style.name}>{name}</h4>
         <ul className={style.social}>
@@ -37,7 +37,7 @@ function Card({ employee, lastEmployeeRef }) {
 Card.propTypes = {
   employee: PropTypes.shape({
     user_id: PropTypes.number,
-    imageUrl: PropTypes.string,
+    profileimg: PropTypes.string,
     name: PropTypes.string,
     office: PropTypes.string,
     github: PropTypes.string,
