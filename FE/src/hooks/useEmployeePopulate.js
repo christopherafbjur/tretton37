@@ -14,7 +14,6 @@ export default function useEmployeeSearch(pageNumber, queryOptions) {
     setEmployees([]);
   }, [queryOptions]);
 
-  console.log(queryOptions, pageNumber);
   useEffect(() => {
     setLoading(true);
     setError(false);
@@ -42,6 +41,7 @@ export default function useEmployeeSearch(pageNumber, queryOptions) {
       })
       .catch((ex) => {
         setError(true);
+        console.error(ex);
       });
     return () => cancel();
   }, [queryOptions, pageNumber]);

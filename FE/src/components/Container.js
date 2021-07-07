@@ -10,9 +10,15 @@ function Container({ employees, lastEmployeeRef }) {
       {employees &&
         employees.map((employee, index) => {
           if (index === employees.length - 1) {
-            return <Card lastEmployeeRef={lastEmployeeRef} employee={employee} />;
+            return (
+              <Card
+                key={employee.user_id.toString()}
+                lastEmployeeRef={lastEmployeeRef}
+                employee={employee}
+              />
+            );
           }
-          return <Card employee={employee} />;
+          return <Card key={employee.user_id.toString()} employee={employee} />;
         })}
     </div>
   );

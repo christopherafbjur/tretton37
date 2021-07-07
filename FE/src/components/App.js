@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import useEmployeePopulate from '../hooks/useEmployeePopulate';
 import Container from './Container';
 import ToolMenu from './ToolMenu';
@@ -16,12 +16,10 @@ function App() {
       // eslint-disable-next-line no-undef
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          console.log('Visible');
           setPageNumber((prevPageNumber) => prevPageNumber + 1);
         }
       });
       if (node) observer.current.observe(node);
-      console.log(node);
     },
     [loading, hasMore]
   );

@@ -40,7 +40,7 @@ exports.up = (pgm, run) => {
       run();
     })
     .catch(function (err) {
-      console.log('err', err);
+      console.error('err', err);
     });
 };
 
