@@ -3,7 +3,7 @@ services:
   api:
     build: ./BE
     ports:
-      - 3000:3000
+      - 3001:3001
     environment:
       DATABASE_URL: postgres://postgres:changethispw@db:5432/t37db
     command: ['sh', './docker-entrypoint.sh']
