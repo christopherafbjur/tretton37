@@ -24,7 +24,7 @@ export default function useEmployeeSearch(pageNumber, queryOptions) {
       url: `${BASE_URL}/employees`,
       params: {
         query: queryOptions.searchQuery,
-        office: queryOptions.office || 'stockholm',
+        office: queryOptions.office,
         limit: ITEM_LOAD_LIMIT,
         offset: ITEM_LOAD_LIMIT * pageNumber,
       },
