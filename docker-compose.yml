@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  api:
+    build: ./BE
+    ports:
+      - 3000:3000
+    environment:
+      DATABASE_URL: postgres://postgres:changethispw@db:5432/t37db
+    command: ['sh', './docker-entrypoint.sh']
+  db:
+    image: postgres:13.3-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: changethispw
+      POSTGRES_DB: t37db
+    restart: unless-stopped
