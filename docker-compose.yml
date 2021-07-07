@@ -4,12 +4,14 @@ services:
     build: ./FE
     ports:
       - 3000:3000
+    image: tretton37_web:1
     volumes:
       - ./FE:/app
   api:
     build: ./BE
     ports:
       - 3001:3001
+    image: tretton37_api:1
     environment:
       DATABASE_URL: postgres://postgres:changethispw@db:5432/t37db
     volumes:
