@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const ITEM_LOAD_LIMIT = 10;
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 export default function useEmployeeSearch(pageNumber, query) {
   const [loading, setLoading] = useState(false);
@@ -18,18 +19,16 @@ export default function useEmployeeSearch(pageNumber, query) {
 
     axios({
       method: 'GET',
-      url: process.env.REACT_APP_API_URL,
-      headers: {
-        Authorization: `${process.env.REACT_APP_API_KEY}`,
-      },
+      url: `${BASE_URL}/employees`,
     })
       .then((res) => {
-        setCached(res.data);
-        setLoading(false);
+        console.log(res);
+        /* setCached(res.data);
+        setLoading(false); */
       })
       .catch((ex) => {
-        console.log(ex);
-        setError(true);
+        /* console.log(ex);
+        setError(true); */
       });
   }, []);
 
