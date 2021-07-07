@@ -5,6 +5,7 @@ const db = require('../services/database');
 router.get('/', async function (req, res) {
   const options = {
     query: req.query.query || '',
+    office: req.query.office || '',
     orderBy: req.query.orderBy || 'name',
     direction: req.query.direction || 'ASC',
     limit: req.query.limit || null,
@@ -14,11 +15,14 @@ router.get('/', async function (req, res) {
   //! Note, I'm aware that this approach opens up for SQL injection but don't have time to migrate to other postgres lib
   const query = `
     SELECT * FROM users 
-    WHERE ${options.orderBy} ILIKE '%${options.query}%'
+    WHERE name ILIKE '%${options.query}%' 
+    AND office ILIKE '%${options.office}%' 
     ORDER BY ${options.orderBy} ${options.direction}
     LIMIT ${options.limit}
     OFFSET ${options.offset}
   `;
+
+  console.log(query);
 
   db.query(query, function (err, result) {
     if (err) throw err;
