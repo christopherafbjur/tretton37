@@ -6,6 +6,8 @@ services:
       - 3001:3001
     environment:
       DATABASE_URL: postgres://postgres:changethispw@db:5432/t37db
+    volumes:
+      - ./BE:/app
     command: ['sh', './docker-entrypoint.sh']
   db:
     image: postgres:13.3-alpine
