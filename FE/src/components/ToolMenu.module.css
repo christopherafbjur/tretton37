@@ -1,0 +1,42 @@
+.mainWrapper {
+  font-family: arial;
+  background-color: lightgray;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 13px 0px rgba(0, 0, 0, 0.5);
+}
+
+.toolWrapper {
+  display: flex;
+}
+
+.filterWrapper {
+  padding: 20px;
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.sortWrapper {
+  width: 200px;
+  padding: 20px;
+  margin-left: 25px;
+  position: relative;
+  border-radius: 10px;
+  background-color: white;
+}
+
+@media screen and (max-width: 480px) {
+  .toolWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sortWrapper {
+    box-sizing: border-box;
+    margin-left: 0px;
+    margin-top: 25px;
+    width: 100%;
+  }
+}
