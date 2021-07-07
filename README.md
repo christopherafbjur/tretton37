@@ -14,7 +14,7 @@ The web app can be accessed in http://localhost:3000 and the API from http://loc
 
 ## Personal thoughts
 
-I wanted to create a full scale "full stack" project so my main focus was to complete that. I am not happy with the CSS, but had to prioritize evenly between different tasks and the timeframe. Unfortunately did not have time to implement unit testing either nor have the time to test thoroughly. I also wanted to deploy this project to Digital Ocean were experiencing some never before seen and "un-googable" problems when deploying with the Docker machine. If I would have managed to deploy today, I just want to clarify that I would create a separate Dockerfile and docker-compose for a prod environment (that would use a compressed build bundle for react and different npm scripts for the API instead of using nodemon).
+I wanted to create a full scale "full stack" project so my main focus was to complete that. I am not happy with the CSS, but had to prioritize evenly between different tasks and the timeframe. Unfortunately did not have time to implement unit testing either nor have the time to test thoroughly. I also wanted to deploy this project to Digital Ocean were experiencing some never before seen and "un-googable" problems when deploying with the Docker machine. If I would have managed to deploy today, I just want to clarify that I would create a separate Dockerfile and docker-compose.yml for a prod environment (that would use a compressed build bundle for react and different npm scripts for the API instead of using nodemon). I would also not write sensitive data in ENV vars directly in the Dockerfile - would rather read them from a file through the Dockerfile etc.
 
 ## Stories
 
