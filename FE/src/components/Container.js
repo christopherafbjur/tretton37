@@ -6,7 +6,7 @@ import style from './Container.module.css';
 // eslint-disable-next-line react/prop-types
 function Container({ employees, lastEmployeeRef }) {
   return (
-    <div className={style.container}>
+    <div className={`${style.grid} ${style.container}`}>
       {employees &&
         employees.map((employee, index) => {
           if (index === employees.length - 1) {

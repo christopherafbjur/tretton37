@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
 import style from './Card.module.css';
 
 // eslint-disable-next-line react/prop-types
@@ -11,23 +12,26 @@ function Card({ employee, lastEmployeeRef }) {
       <div className={style.image} style={{ backgroundImage: `url(${profileimg})` }} />
       <div className={style.details}>
         <h4 className={style.name}>{name}</h4>
-        <ul className={style.social}>
-          <li>
-            <a target="_blank" rel="noreferrer" href={`https://linkedin.com/${linkedin}`}>
-              <FaLinkedin />
-            </a>
-          </li>
-          <li>
-            <a target="_blank" rel="noreferrer" href={`https://github.com/${github}`}>
-              <FaGithub />
-            </a>
-          </li>
-          <li>
-            <a target="_blank" rel="noreferrer" href={`https://twitter.com/${twitter}`}>
-              <FaTwitter />
-            </a>
-          </li>
-        </ul>
+        <div className={style.social}>
+          <IconContext.Provider value={{ color: 'black' }}>
+            <span className={style.icon}>
+              <a target="_blank" rel="noreferrer" href={`https://linkedin.com/${linkedin}`}>
+                <FaLinkedin />
+              </a>
+            </span>
+
+            <span className={style.icon}>
+              <a target="_blank" rel="noreferrer" href={`https://github.com/${github}`}>
+                <FaGithub />
+              </a>
+            </span>
+            <span className={style.icon}>
+              <a target="_blank" rel="noreferrer" href={`https://twitter.com/${twitter}`}>
+                <FaTwitter />
+              </a>
+            </span>
+          </IconContext.Provider>
+        </div>
       </div>
       <h4 className={style.location}>Office: {office}</h4>
     </div>
