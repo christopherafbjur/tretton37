@@ -8,5 +8,12 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.17.1",
+    "node-pg-migrate": "^5.10.0",
+    "pg": "^8.6.0",
+    "request-promise": "^4.2.6"
+  }
 }
