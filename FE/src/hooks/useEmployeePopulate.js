@@ -18,6 +18,7 @@ export default function useEmployeeSearch(pageNumber, queryOptions) {
   useEffect(() => {
     setLoading(true);
     setError(false);
+    let cancel;
 
     axios({
       method: 'GET',
@@ -25,8 +26,13 @@ export default function useEmployeeSearch(pageNumber, queryOptions) {
       params: {
         query: queryOptions.searchQuery,
         office: queryOptions.office,
+        sortBy: queryOptions.sortBy,
+        sortDir: queryOptions.sortDir,
         limit: ITEM_LOAD_LIMIT,
         offset: ITEM_LOAD_LIMIT * pageNumber,
+        cancelToken: new axios.CancelToken((c) => {
+          cancel = c;
+        }),
       },
     })
       .then((res) => {
@@ -35,9 +41,9 @@ export default function useEmployeeSearch(pageNumber, queryOptions) {
         setLoading(false);
       })
       .catch((ex) => {
-        console.log(ex);
         setError(true);
       });
+    return () => cancel();
   }, [queryOptions, pageNumber]);
 
   return { loading, error, employees, hasMore };

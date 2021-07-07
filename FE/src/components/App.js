@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import useEmployeePopulate from '../hooks/useEmployeePopulate';
 import Container from './Container';
+import ToolMenu from './ToolMenu';
 
 function App() {
   const [query, setQuery] = useState({ office: '' });
@@ -25,27 +26,34 @@ function App() {
     [loading, hasMore]
   );
 
-  const onQueryChange = (e) => {
+  const handleQueryChange = (e) => {
     setQuery({ ...query, searchQuery: e.target.value });
     setPageNumber(0);
   };
 
-  const onOfficeChange = (e) => {
+  const handleOfficeChange = (e) => {
     setQuery({ ...query, office: e.target.value });
+    setPageNumber(0);
+  };
+
+  const handleSortChange = (e) => {
+    setQuery({ ...query, sortBy: e.target.value });
+    setPageNumber(0);
+  };
+
+  const handleSortDirectionChange = (e) => {
+    setQuery({ ...query, sortDir: e.target.value });
     setPageNumber(0);
   };
 
   return (
     <>
-      <input type="text" onChange={onQueryChange} placeholder="Name" />
-      <select id="office" onChange={onOfficeChange} name="office">
-        <option value="">Office</option>
-        <option value="lund">Lund</option>
-        <option value="helsingborg">Helsingborg</option>
-        <option value="stockholm">Stockholm</option>
-        <option value="borlänge">Borlänge</option>
-        <option value="ljubljana">Ljubljana</option>
-      </select>
+      <ToolMenu
+        onQueryChange={handleQueryChange}
+        onOfficeChange={handleOfficeChange}
+        onSortChange={handleSortChange}
+        onSortDirectionChange={handleSortDirectionChange}
+      />
       {employees && <Container lastEmployeeRef={lastEmployeeElementRef} employees={employees} />}
       {loading && <h1>Loading</h1>}
       {error && <h1>Error</h1>}
