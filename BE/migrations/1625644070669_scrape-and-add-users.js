@@ -6,9 +6,9 @@ const { trimText } = require('../lib/helpers');
 const url = 'https://tretton37.com/meet';
 
 function buildSQLStatementFromArray(arr) {
-  let statement = `INSERT INTO users (name, office, github, twitter, linkedin) VALUES `;
-  arr.forEach(({ name, office, github, twitter, linkedin }, i) => {
-    statement += `('${name}', '${office}', '${github}', '${twitter}', '${linkedin}')`;
+  let statement = `INSERT INTO users (name, office, github, twitter, linkedin, profileImg) VALUES `;
+  arr.forEach(({ name, office, github, twitter, linkedin, imageUrl }, i) => {
+    statement += `('${name}', '${office}', '${github}', '${twitter}', '${linkedin}', '${imageUrl}')`;
 
     statement += i === arr.length - 1 ? ';' : ', ';
   });
@@ -21,20 +21,24 @@ exports.up = (pgm, run) => {
   rp(url)
     .then(function (html) {
       const $ = cheerio.load(html);
-      const scraped = $('.ninja-summary > .contact-info > h1 > a');
+      const contacts = $('.ninja-summary > .contact-info > h1 > a');
+      const images = $('.ninja-summary .portrait');
       const data = [];
 
-      scraped.each((i, el) => {
-        const name = el.children[0].data;
-        const office = el.children[1].children[0].data;
+      for (var i = 0; i < contacts.length; i++) {
+        const name = contacts[i].children[0].data;
+        const office = contacts[i].children[1].children[0].data;
+        const image = images[i].attribs.src;
+
         data.push({
           name,
+          imageUrl: image,
           office: office.substr(5, office.length),
           github: trimText(name),
           linkedin: trimText(name),
           twitter: trimText(name),
         });
-      });
+      }
 
       pgm.sql(buildSQLStatementFromArray(data));
       run();

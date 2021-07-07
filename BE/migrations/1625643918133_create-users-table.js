@@ -11,6 +11,7 @@ exports.up = (pgm) => {
       github VARCHAR(80) NOT NULL,
       twitter VARCHAR(80) NOT NULL,
       linkedin VARCHAR(80) NOT NULL,
+      profileImg VARCHAR(255),
       created_at timestamp with time zone DEFAULT now()
     );
   `);
