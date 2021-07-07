@@ -6,8 +6,8 @@ router.get('/', async function (req, res) {
   const options = {
     query: req.query.query || '',
     office: req.query.office || '',
-    orderBy: req.query.orderBy || 'name',
-    direction: req.query.direction || 'ASC',
+    orderBy: req.query.sortBy || 'name',
+    direction: req.query.sortDir || 'ASC',
     limit: req.query.limit || null,
     offset: req.query.offset || null,
   };
