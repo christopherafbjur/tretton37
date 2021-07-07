@@ -1,5 +1,11 @@
 version: '3.8'
 services:
+  web:
+    build: ./FE
+    ports:
+      - 3000:3000
+    volumes:
+      - ./FE:/app
   api:
     build: ./BE
     ports:
