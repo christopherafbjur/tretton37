@@ -22,8 +22,6 @@ router.get('/', async function (req, res) {
     OFFSET ${options.offset}
   `;
 
-  console.log(query);
-
   db.query(query, function (err, result) {
     if (err) throw err;
     res.status(200).send(result.rows);

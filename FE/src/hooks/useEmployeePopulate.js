@@ -4,57 +4,41 @@ import axios from 'axios';
 const ITEM_LOAD_LIMIT = 10;
 const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
-export default function useEmployeeSearch(pageNumber, query) {
+export default function useEmployeeSearch(pageNumber, queryOptions) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [cached, setCached] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
-    // Responsible for caching all employees in a initial request since no limit/sort params available for API
+    setEmployees([]);
+  }, [queryOptions]);
 
+  console.log(queryOptions, pageNumber);
+  useEffect(() => {
     setLoading(true);
     setError(false);
 
     axios({
       method: 'GET',
       url: `${BASE_URL}/employees`,
+      params: {
+        query: queryOptions.searchQuery,
+        office: queryOptions.office || 'stockholm',
+        limit: ITEM_LOAD_LIMIT,
+        offset: ITEM_LOAD_LIMIT * pageNumber,
+      },
     })
       .then((res) => {
-        console.log(res);
-        /* setCached(res.data);
-        setLoading(false); */
+        setEmployees((prevEmployees) => [...prevEmployees, ...res.data]);
+        setHasMore(res.data.length > 0);
+        setLoading(false);
       })
       .catch((ex) => {
-        /* console.log(ex);
-        setError(true); */
+        console.log(ex);
+        setError(true);
       });
-  }, []);
+  }, [queryOptions, pageNumber]);
 
-  useEffect(() => {
-    setEmployees([]);
-  }, [query]);
-
-  useEffect(() => {
-    setEmployees((prevEmployees) => {
-      // Filter by name
-      let filtered = cached.filter(
-        ({ name = '' }) => !query.name || name.toLowerCase().startsWith(query.name)
-      );
-
-      // Filter by office
-      filtered = filtered.filter(
-        ({ office = '' }) =>
-          !query.office || (office && office.toLowerCase().startsWith(query.office))
-      );
-
-      const inView = [...filtered.slice(0, pageNumber * ITEM_LOAD_LIMIT)];
-
-      setHasMore(inView.length < filtered.length);
-
-      return inView;
-    });
-  }, [cached, query, pageNumber]);
   return { loading, error, employees, hasMore };
 }
